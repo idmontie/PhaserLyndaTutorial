@@ -9,9 +9,16 @@
       margin: 0;
       background-color: #000;
     }
-    </style>
+  </style>
 </head>
 <body>
+  <div id="game-container"></div>
 
+  <script src="lib/phaser.min.js"></script>
+  <script type="text/javascript">
+  window.onload = function () {
+    var game = new Phaser.Game(540, 960, Phaser.AUTO, "game-container");
+  };
+  </script>
 </body>
 </html>
