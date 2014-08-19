@@ -25,6 +25,8 @@ BunnyDefender.Preloader.prototype.preload = function () {
   this.load.atlasXML('spacerock', 'images/spritesheets/SpaceRock.png', 'images/spritesheets/SpaceRock.xml');
 
   this.load.image('explosion', 'images/explosion.png');
+
+  this.load.image('ghost', 'images/ghost.png');
 };
 
 BunnyDefender.Preloader.prototype.create = function () {

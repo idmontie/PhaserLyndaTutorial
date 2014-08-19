@@ -166,9 +166,7 @@ BunnyDefender.Game.prototype.burstCollision = function (r, b) {
 BunnyDefender.Game.prototype.bunnyCollision = function (r, b) {
   if (b.exists) {
     this.respawnRock(r);
-    b.kill();
-    this.totalBunnies--;
-    this.checkBunniesLeft();
+    this.killBunny(b);
   }
 };
 
@@ -180,8 +178,23 @@ BunnyDefender.Game.prototype.checkBunniesLeft = function () {
 
 BunnyDefender.Game.prototype.friendlyFireCollision = function (b, e) {
   if (b.exists) {
-    b.kill();
-    this.totalBunnies--;
-    this.checkBunniesLeft;
+    this.killBunny(b);
   }
+};
+
+BunnyDefender.Game.prototype.killBunny = function (b) {
+  this.makeGhost(b);
+  b.kill();
+  this.totalBunnies--;
+  this.checkBunniesLeft();
+}
+
+BunnyDefender.Game.prototype.makeGhost = function (b) {
+  var bunnyGhost = this.add.sprite(b.x - 20, b.y - 180, 'ghost');
+  bunnyGhost.anchor.setTo(0.5, 0.5);
+  bunnyGhost.scale.x = b.scale.x;
+  this.physics.enable(bunnyGhost, Phaser.Physics.ARCADE);
+  bunnyGhost.enableBody = true;
+  bunnyGhost.checkWorldBounds = true;
+  bunnyGhost.body.velocity.y = -800;
 };
