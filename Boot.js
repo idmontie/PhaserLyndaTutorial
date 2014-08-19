@@ -3,11 +3,14 @@
 var BunnyDefender = {};
 
 BunnyDefender.Boot = function (game) {};
-BunnyDefender.Boot.prototype.preload = function () {};
+BunnyDefender.Boot.prototype.preload = function () {
+  this.load.image('preloadBar', 'images/loader_bar.png');
+  this.load.image('titleimage', 'images/TitleImage.png');
+};
 BunnyDefender.Boot.prototype.create = function () {
   this.input.maxPointers = 1;
   this.stage.disableVisibilityChange = false;
-  this.scale.scaleMode = Phase.ScaleManager.SHOW_ALL;
+  this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
   this.scale.minWidth = 270;
   this.scale.minHeight = 480;
   this.scale.pageAlignHorizontally = true;
@@ -18,4 +21,5 @@ BunnyDefender.Boot.prototype.create = function () {
   this.input.addPointer();
   this.stage.backgroundColor = "#171642";
 
+  this.state.start('Preloader');
 };

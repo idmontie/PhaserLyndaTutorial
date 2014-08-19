@@ -7,7 +7,7 @@ BunnyDefender.Preloader = function (game) {
 };
 
 BunnyDefender.Preloader.prototype.preload = function () {
-  this.preloadBar = this.add.sprite(this.world.cenerX, this.world.centerY, 'preloaderBar');
+  this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloaderBar');
   this.preloadBar.anchor.setTo(0.5, 0.5);
   this.load.setPreloadSprite(this.preloadBar);
 
