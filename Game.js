@@ -8,10 +8,18 @@ BunnyDefender.Game = function (game) {
   this.burst;
   this.gameOver;
   this.countdown;
+  this.overMessage;
+  this.secondsElapsed;
+  this.timer;
 };
 
 BunnyDefender.Game.prototype.create = function () {
   this.gameOver = false;
+  this.secondsElapsed = 0;
+  // false => do not remove yourself from the game
+  this.timer = this.time.create(false);
+  // 1000 => every 1 sec
+  this.timer.loop(1000, this.updateSeconds, this);
   this.totalBunnies = 20;
   this.totalSpacerocks = 13;
   this.buildWorld();
@@ -41,6 +49,10 @@ BunnyDefender.Game.prototype.update = function () {
     this);
 };
 
+BunnyDefender.Game.prototype.updateSeconds = function () {
+  this.secondsElapsed++;
+}
+
 BunnyDefender.Game.prototype.buildWorld = function () {
   this.add.image(0, 0, 'sky');
   this.add.image(0, 800, 'hill');
@@ -50,6 +62,8 @@ BunnyDefender.Game.prototype.buildWorld = function () {
   this.buildEmitter();
   this.countdown = this.add.bitmapText(10, 10, 'eightbitwonder', 
     'Bunnies Left ' + this.totalBunnies, 20);
+
+  this.timer.start();
 };
 
 BunnyDefender.Game.prototype.buildBunnies = function () {
@@ -184,6 +198,14 @@ BunnyDefender.Game.prototype.checkBunniesLeft = function () {
     // Game over
     this.gameOver = true;
     this.countdown.setText('Bunnies Left 0');
+    this.overMessage = this.add.bitmapText(
+      this.world.centerX - 180, 
+      this.world.centerY - 40,
+      "eightbitwonder",
+      'GAME OVER\n\n' + "You lasted \n" + this.secondsElapsed + " seconds", 42);
+    this.overMessage.align = "center";
+    this.overMessage.inputEnabled = true;
+    this.overMessage.events.onInputDown.addOnce(this.quitGame, this);
   } else {
     this.countdown.setText('Bunnies Left ' + this.totalBunnies);
   }
@@ -210,4 +232,8 @@ BunnyDefender.Game.prototype.makeGhost = function (b) {
   bunnyGhost.enableBody = true;
   bunnyGhost.checkWorldBounds = true;
   bunnyGhost.body.velocity.y = -800;
+};
+
+BunnyDefender.Game.prototype.quitGame = function (pointer) {
+  this.state.start('StartMenu');
 };
