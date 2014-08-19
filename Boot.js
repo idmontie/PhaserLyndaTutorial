@@ -4,7 +4,7 @@ var BunnyDefender = {};
 
 BunnyDefender.Boot = function (game) {};
 BunnyDefender.Boot.prototype.preload = function () {
-  this.load.image('preloadBar', 'images/loader_bar.png');
+  this.load.image('preloaderBar', 'images/loader_bar.png');
   this.load.image('titleimage', 'images/TitleImage.png');
 };
 BunnyDefender.Boot.prototype.create = function () {
