@@ -29,6 +29,13 @@ BunnyDefender.Game.prototype.update = function () {
     this.bunnyCollision,
     null,
     this);
+
+  this.physics.arcade.overlap(
+    this.bunnyGroup,
+    this.burst,
+    this.friendlyFireCollision,
+    null,
+    this);
 };
 
 BunnyDefender.Game.prototype.buildWorld = function () {
@@ -169,4 +176,12 @@ BunnyDefender.Game.prototype.checkBunniesLeft = function () {
   if (this.totalBunnies <= 0) {
     // Game over
   }
-}
+};
+
+BunnyDefender.Game.prototype.friendlyFireCollision = function (b, e) {
+  if (b.exists) {
+    b.kill();
+    this.totalBunnies--;
+    this.checkBunniesLeft;
+  }
+};
