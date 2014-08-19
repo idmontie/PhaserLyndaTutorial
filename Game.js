@@ -15,7 +15,20 @@ BunnyDefender.Game.prototype.create = function () {
 };
 
 BunnyDefender.Game.prototype.update = function () {
-  
+  // null => callback
+  this.physics.arcade.overlap(
+    this.spacerockGroup,
+    this.burst,
+    this.burstCollision,
+    null,
+    this);
+
+  this.physics.arcade.overlap(
+    this.spacerockGroup,
+    this.bunnyGroup,
+    this.bunnyCollision,
+    null,
+    this);
 };
 
 BunnyDefender.Game.prototype.buildWorld = function () {
@@ -138,3 +151,22 @@ BunnyDefender.Game.prototype.fireBurst = function (pointer) {
   // 20 => 20 particles
   this.burst.start(true, 2000, null, 20);
 };
+
+BunnyDefender.Game.prototype.burstCollision = function (r, b) {
+  this.respawnRock(r);
+};
+
+BunnyDefender.Game.prototype.bunnyCollision = function (r, b) {
+  if (b.exists) {
+    this.respawnRock(r);
+    b.kill();
+    this.totalBunnies--;
+    this.checkBunniesLeft();
+  }
+};
+
+BunnyDefender.Game.prototype.checkBunniesLeft = function () {
+  if (this.totalBunnies <= 0) {
+    // Game over
+  }
+}
