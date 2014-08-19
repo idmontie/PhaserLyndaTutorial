@@ -7,6 +7,7 @@ BunnyDefender.Game = function (game) {
   this.spacerockGroup;
   this.burst;
   this.gameOver;
+  this.countdown;
 };
 
 BunnyDefender.Game.prototype.create = function () {
@@ -47,6 +48,8 @@ BunnyDefender.Game.prototype.buildWorld = function () {
   this.buildBunnies();
   this.buildSpacerocks();
   this.buildEmitter();
+  this.countdown = this.add.bitmapText(10, 10, 'eightbitwonder', 
+    'Bunnies Left ' + this.totalBunnies, 20);
 };
 
 BunnyDefender.Game.prototype.buildBunnies = function () {
@@ -180,6 +183,9 @@ BunnyDefender.Game.prototype.checkBunniesLeft = function () {
   if (this.totalBunnies <= 0) {
     // Game over
     this.gameOver = true;
+    this.countdown.setText('Bunnies Left 0');
+  } else {
+    this.countdown.setText('Bunnies Left ' + this.totalBunnies);
   }
 };
 
