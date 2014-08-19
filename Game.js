@@ -3,10 +3,13 @@
 BunnyDefender.Game = function (game) {
   this.totalBunnies;
   this.bunnyGroup;
+  this.totalSpacerocks;
+  this.spacerockGroup;
 };
 
 BunnyDefender.Game.prototype.create = function () {
   this.totalBunnies = 20;
+  this.totalSpacerocks = 13;
   this.buildWorld();
 };
 
@@ -19,6 +22,7 @@ BunnyDefender.Game.prototype.buildWorld = function () {
   this.add.image(0, 800, 'hill');
 
   this.buildBunnies();
+  this.buildSpacerocks();
 };
 
 BunnyDefender.Game.prototype.buildBunnies = function () {
@@ -75,4 +79,21 @@ BunnyDefender.Game.prototype.stopBunny = function (b) {
   this.assignBunnyMovement(b);
 };
 
-
+BunnyDefender.Game.prototype.buildSpacerocks = function () {
+  this.spacerockGroup = this.add.group();
+  for (var i = 0; i < this.totalSpacerocks; i++) {
+    var r = this.spacerockGroup.create(
+      this.rnd.integerInRange(0, this.world.width),
+      this.rnd.realInRange(-1500, 0), 
+      'spacerock', 
+      'SpaceRock0000');
+    var scale = this.rnd.realInRange(0.3, 1.0);
+    r.scale.x = scale;
+    r.scale.y = scale;
+    this.physics.enable(r, Phaser.Physics.ARCADE);
+    r.enableBody = true;
+    r.body.velocity.y = this.rnd.integerInRange(200, 400);
+    r.animations.add('Fall');
+    r.animations.play('Fall, 24, true');
+  }
+}
