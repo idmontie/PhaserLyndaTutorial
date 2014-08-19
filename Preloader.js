@@ -17,6 +17,8 @@ BunnyDefender.Preloader.prototype.preload = function () {
   this.load.image('titlescreen', 'images/TitleBG.png');
   this.load.bitmapFont('eightbitwonder', 'fonts/eightbitwonder.png', 'fonts/eightbitwonder.fnt');
 
+  this.load.image('hill', 'images/hill.png');
+  this.load.image('sky', 'images/sky.png');
 };
 
 BunnyDefender.Preloader.prototype.create = function () {
