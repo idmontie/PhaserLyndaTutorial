@@ -19,6 +19,8 @@ BunnyDefender.Preloader.prototype.preload = function () {
 
   this.load.image('hill', 'images/hill.png');
   this.load.image('sky', 'images/sky.png');
+
+  this.load.atlasXML('bunny', 'images/spritesheets/bunny.png', 'images/spritesheets/bunny.xml');
 };
 
 BunnyDefender.Preloader.prototype.create = function () {
