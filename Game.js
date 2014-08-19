@@ -5,6 +5,7 @@ BunnyDefender.Game = function (game) {
   this.bunnyGroup;
   this.totalSpacerocks;
   this.spacerockGroup;
+  this.burst;
 };
 
 BunnyDefender.Game.prototype.create = function () {
@@ -23,6 +24,7 @@ BunnyDefender.Game.prototype.buildWorld = function () {
 
   this.buildBunnies();
   this.buildSpacerocks();
+  this.buildEmitter();
 };
 
 BunnyDefender.Game.prototype.buildBunnies = function () {
@@ -113,4 +115,26 @@ BunnyDefender.Game.prototype.respawnRock = function (r) {
     this.rnd.realInRange(-1500, 0)
     );
   r.body.velocity.y = this.rnd.integerInRange(200, 400);
-}
+};
+
+BunnyDefender.Game.prototype.buildEmitter = function () {
+  // 80 particles at any given time
+  this.burst = this.add.emitter(0, 0, 80);
+  this.burst.minParticleScale = 0.3;
+  this.burst.maxParticleScale = 1.2;
+  this.burst.minParticleSpeed.setTo(-30, 30);
+  this.burst.maxParticleSpeed.setTo(30, -30);
+  this.burst.makeParticles('explosion');
+  this.input.onDown.add(this.fireBurst, this);
+};
+
+BunnyDefender.Game.prototype.fireBurst = function (pointer) {
+  this.burst.emitX = pointer.x;
+  this.burst.emitY = pointer.y;
+
+  // true => burst acts as explosion
+  // 2000 => 2 second lifespan
+  // null => no frequency
+  // 20 => 20 particles
+  this.burst.start(true, 2000, null, 20);
+};
